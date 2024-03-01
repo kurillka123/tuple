@@ -1,6 +1,8 @@
 # запрещенные предметы: нож, бензин, граната, пистолет
 
 """
+
+
 Пассажиров на проверке: 5
 
 Пассажир Питонов Василий Аспидович допущен к вылету
@@ -67,12 +69,34 @@ passengers = [
         "имя": "Аскетов Демьян Захарьевич",
         "проверен": False,
         "ручная кладь": []
+    },
+    {
+        "место": 5,
+        "имя": "Оcтрый Демьян Ножевич",
+        "проверен": False,
+        "ручная кладь": ['нож', 'нож']
     }
 ]
 
 banned_items = ['нож', 'бензин', 'граната']
-print('пасажиров на проверке:')
+num = 1
+print('                                            ')
+print('пасажиров на проверке:', len(passengers))
+passenger_allower = 0
 for passager in passengers:
-    print(passager.get('ручная кладь'))
-    if passager.get('ручная кладь') == banned_items:
-        
+    counter = 0
+    for item in passager['ручная кладь']:
+        if item in banned_items:
+            print('                                                                                                                 ')
+            print(f'{num}: В ручной клади пассажира {passager["имя"]} обнаружен запрещенный предмет {item} . Пассажир не допущен к вылету.')
+            counter += 1
+            num += 1
+            break
+    if not counter:
+        print('                                            ')
+        print(f'{num}: Пассажир {passager["имя"]} допущен к вылету')
+        passenger_allower += 1
+        num += 1
+print('                                            ')
+print('допущено посажиров:', passenger_allower)
+print('                                            ')

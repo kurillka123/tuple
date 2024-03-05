@@ -1,5 +1,5 @@
 from random import shuffle
-
+from os import system
 
 
 '''
@@ -17,7 +17,7 @@ from random import shuffle
 
 Кажому игроку выдается по 2 карты из колоды
 
-Игрок види только свои карты
+Игрок видит только свои карты
 
 Задача - цены всех карт игрока = 21
 
@@ -64,18 +64,39 @@ def get_players():
     }
     player_2 = {
         'человек': True,
-        'имя': 'вася',
+        'имя': 'ася',
         'карты': [],
         'счет': 10
     }
     return [player_1, player_2]
 
+def deal_cards(num: int) -> None:
+    for player in players:
+        for i in range(num):
+            player['карты'].append(deck.pop(-1))
+
+def show_cards() -> None:
+    for card in player['карты']:
+        print(card['имя'], card['масть'])
 
 deck = get_deck()
 shuffle(deck)
 players = get_players()
+deal_cards(2)
+
 for player in players:
-    for i in range(2):
-        player['карты'].append(deck.pop(-1))
-print(players[0])
-print(players[1])
+    while True:
+        system('cls')
+        show_cards()
+        player_option = input('взять карту? y/n:')
+        if player_option == 'y':
+            player['карты'].append(deck.pop(-1))
+        else:
+            break
+for player in players:
+    total = 0
+    for card in player['карты']:
+        total += card['цена']
+    print('-' * 20)
+    print(player['имя'], total)
+    print('-' * 20)
